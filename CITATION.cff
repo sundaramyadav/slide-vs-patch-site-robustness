@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this code or the released folds, please cite the paper."
+title: "Slide-vs-patch site robustness: a leave-one-site-out study of 30 pathology foundation models"
+authors:
+  - family-names: "Yadav"
+    given-names: "Sundaram"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/<USER>/slide-vs-patch-site-robustness"
+keywords:
+  - computational pathology
+  - foundation models
+  - batch effects
+  - domain shift
+  - benchmarking
