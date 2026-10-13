@@ -6,7 +6,7 @@ authors:
     given-names: "Sundaram"
 version: 1.0.0
 license: MIT
-doi: "10.5281/zenodo.23333114"
+doi: "10.5281/zenodo.23344462"
 repository-code: "https://github.com/sundaramyadav/slide-vs-patch-site-robustness"
 keywords:
   - computational pathology
