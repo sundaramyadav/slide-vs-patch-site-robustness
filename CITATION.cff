@@ -6,7 +6,8 @@ authors:
     given-names: "Sundaram"
 version: 1.0.0
 license: MIT
-repository-code: "https://github.com/<USER>/slide-vs-patch-site-robustness"
+doi: "10.5281/zenodo.23333114"
+repository-code: "https://github.com/sundaramyadav/slide-vs-patch-site-robustness"
 keywords:
   - computational pathology
   - foundation models
