@@ -2,7 +2,7 @@
 
 Code and released evaluation artifacts for a leave-one-site-out study of
 **30 pathology foundation models** on TCGA-PRAD.
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23333114.svg)](https://doi.org/10.5281/zenodo.23333114)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23344462.svg)](https://doi.org/10.5281/zenodo.23344462)
 ## What this measures
 
 Pathology foundation models encode which hospital a slide came from, and this
