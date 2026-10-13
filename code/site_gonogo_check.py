@@ -31,7 +31,7 @@ DECISION RULE (printed at the end)
   GO        : >= 8 sites with >= 15 patients each, AND significant prevalence variation
   WEAK GO   : enough sites, but prevalence variation not significant
               -> study becomes a robustness/generalization paper (still publishable)
-  NO-GO     : too few usable sites -> fall back to committee-disagreement design
+  NO-GO     : too few usable sites for leave-one-site-out evaluation
 
 RULE: Never delete any files.
 """
@@ -45,9 +45,9 @@ from scipy import stats
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG — paths already match your Drive
 # ════════════════════════════════════════════════════════════════════════════
-MANIFEST_DIR  = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/manifest"
+MANIFEST_DIR  = os.environ.get("PCA_ROOT", "./data") + "/manifest"
 MANIFEST_PATH = os.path.join(MANIFEST_DIR, "manifest_slides.csv")
-OUTPUT_DIR    = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/site_analysis"
+OUTPUT_DIR    = os.environ.get("PCA_ROOT", "./data") + "/results/site_analysis"
 
 # Thresholds for the decision rule
 MIN_PATIENTS_PER_SITE = 15   # a site needs this many patients to be a usable LOSO fold
@@ -197,11 +197,11 @@ def main():
         msg = ("Enough sites for LOSO, but prevalence variation is not significant.\n"
                "  -> Study still works, reframed as cross-institutional\n"
                "     GENERALIZATION rather than label confounding.\n"
-               "     Experiments A, C, D, E, F all still run.")
+               "     The full leave-one-site-out pipeline still runs.")
     else:
         verdict = "NO-GO"
         msg = (f"Only {len(usable)} usable sites (need {MIN_USABLE_SITES}).\n"
-               "  -> Fall back to the committee-disagreement design instead.")
+               "  -> Leave-one-site-out evaluation is not feasible on this cohort.")
 
     print(f"\n  >>> {verdict} <<<\n")
     print("  " + msg.replace("\n", "\n  "))

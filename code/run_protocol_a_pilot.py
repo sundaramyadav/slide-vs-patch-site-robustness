@@ -27,7 +27,7 @@ import time
 import numpy as np
 
 # ── If running as a Colab cell, point to where you saved eval_engine.py ──
-EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "./data")
 if EVAL_ENGINE_DIR not in sys.path:
     sys.path.insert(0, EVAL_ENGINE_DIR)
 
@@ -44,9 +44,9 @@ from eval_engine import (
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG — only thing you change between encoder runs
 # ════════════════════════════════════════════════════════════════════════════
-MANIFEST_DIR   = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/manifest"
-RESULTS_DIR    = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/linear_probe"
-FIGURES_DIR    = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/figures"
+MANIFEST_DIR   = os.environ.get("PCA_ROOT", "./data") + "/manifest"
+RESULTS_DIR    = os.environ.get("PCA_ROOT", "./data") + "/results/linear_probe"
+FIGURES_DIR    = os.environ.get("PCA_ROOT", "./data") + "/results/figures"
 
 MANIFEST_PATH  = os.path.join(MANIFEST_DIR, "manifest_slides.csv")
 INVENTORY_PATH = os.path.join(MANIFEST_DIR, "feature_inventory.csv")

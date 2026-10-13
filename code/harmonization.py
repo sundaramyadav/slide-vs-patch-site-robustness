@@ -66,7 +66,7 @@ from scipy import stats
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE       = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE       = os.environ.get("PCA_ROOT", "./data")
 MANIFEST   = f"{BASE}/manifest"
 CACHE_DIR  = f"{BASE}/cache/embeddings"
 HARM_DIR   = f"{BASE}/results/harmonization"

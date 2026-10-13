@@ -83,7 +83,7 @@ from scipy.spatial import cKDTree
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE        = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE        = os.environ.get("PCA_ROOT", "./data")
 MANIFEST    = f"{BASE}/manifest"
 OUT_DIR     = f"{BASE}/results/spatial"
 FIG_DIR     = f"{BASE}/results/figures"

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-STEP 6 — The honest leaderboard + robustness report model cards
+Final leaderboard across all encoders and both protocols
 ==============================================================
 Assembles every result from Steps 1-5 into the paper's final table, and runs
-the released tool over the encoder zoo to produce per-encoder model cards.
+the per-encoder metric helper over the encoder zoo and collects the results.
 
 TWO DELIVERABLES
     1. honest_leaderboard.csv / .md
@@ -37,7 +37,7 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 
-BASE = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE = os.environ.get("PCA_ROOT", "./data")
 if BASE not in sys.path:
     sys.path.insert(0, BASE)
 
@@ -198,7 +198,7 @@ def write_markdown(lb):
 
 def generate_cards():
     print("\n" + "=" * 78)
-    print("MODEL CARDS")
+    print("PER-ENCODER SUMMARIES")
     print("=" * 78)
     os.makedirs(CARD_DIR, exist_ok=True)
 
@@ -261,7 +261,7 @@ def main():
     if GENERATE_CARDS:
         print(f"  Saved -> {CARD_DIR}/")
     print("\n" + "=" * 78)
-    print("NEXT: Step 7 — arXiv preprint + GitHub release.")
+    print("Done.")
     print("=" * 78)
     return lb
 

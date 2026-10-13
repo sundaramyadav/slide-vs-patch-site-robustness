@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-PATCH PRUNING PILOT — go/no-go for instance-level site mitigation
+PATCH PRUNING PILOT — instance-level site mitigation
 ==================================================================
 Tests the one genuinely novel idea remaining from the TSS proposal (H5):
 
@@ -63,7 +63,7 @@ from sklearn.metrics import roc_auc_score, balanced_accuracy_score
 from sklearn.model_selection import StratifiedGroupKFold
 
 # ════════════════════════════════════════════════════════════════════════════
-BASE       = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE       = os.environ.get("PCA_ROOT", "./data")
 MANIFEST   = f"{BASE}/manifest"
 SPATIAL    = f"{BASE}/results/spatial"
 OUT_DIR    = f"{BASE}/results/pruning"
@@ -297,7 +297,7 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     t0 = time.time()
     print("=" * 76)
-    print("PATCH PRUNING PILOT  (go/no-go for Paper 2)")
+    print("PATCH PRUNING PILOT")
     print("=" * 76)
     print("\n  PRIOR: spatial analysis found 89-98% of patches carry site signal.")
     print("  Expectation is that pruning FAILS. This pilot settles it quickly.")
@@ -385,8 +385,7 @@ def main():
         print("  transductive setting. This is consistent with the spatial finding")
         print("  that 89-98% of patches carry site signal — there is no small")
         print("  contaminated subset to remove.")
-        print("  -> Do NOT build Paper 2 on patch pruning. Finalize Paper 1")
-        print("     (slide-vs-patch gap + spatial structure) and preprint it.")
+        print("  -> Instance-level pruning is not a viable mitigation here.")
     print("-" * 76)
     print(f"\n  Saved -> {OUT_DIR}/pruning_pilot_summary.csv")
     print(f"\nTotal: {(time.time()-t0)/60:.1f} min")

@@ -42,7 +42,7 @@ import pandas as pd
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE          = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE          = os.environ.get("PCA_ROOT", "./data")
 MANIFEST_DIR  = f"{BASE}/manifest"
 SITE_DIR      = f"{BASE}/results/site_analysis"
 

@@ -42,7 +42,7 @@ from sklearn.model_selection import StratifiedKFold
 # CONFIG  —  EDIT THESE
 # ============================================================================
 # Root that directly contains the risk-group folders (high_risk/ and low_risk/).
-DRIVE_OUTPUT = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/organized_output"
+DRIVE_OUTPUT = os.environ.get("PCA_ROOT", "./data") + "/organized_output"
 # Folder names under DRIVE_OUTPUT that hold the two classes (confirmed).
 RISK_GROUP_DIRS = {"high_risk": 1, "low_risk": 0}   # name -> binary label
 
@@ -52,7 +52,7 @@ RISK_GROUP_DIRS = {"high_risk": 1, "low_risk": 0}   # name -> binary label
 DISCOVER_ONLY = True
 
 # Where the manifest/folds/report are written.
-OUTPUT_DIR = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/manifest"
+OUTPUT_DIR = os.environ.get("PCA_ROOT", "./data") + "/manifest"
 # Names that identify SLIDE encoders (everything else found is treated as patch).
 SLIDE_ENCODER_NAMES = {"titan", "chief", "madeleine", "feather"}
 
@@ -68,7 +68,7 @@ NPATCHES_REF_ENCODER = None
 
 # ---- OPTIONAL: ISUP multiclass via a clinical Gleason file -----------------
 # Set CLINICAL_CSV = None to skip ISUP entirely (binary-only run).
-CLINICAL_CSV = None   # e.g. "/content/drive/MyDrive/ProstateCancer/gleason_per_slide.csv"
+CLINICAL_CSV = None   # e.g. "./data/gleason_per_slide.csv"
 # Column names in that CSV (only used if CLINICAL_CSV is set):
 COL_SLIDE_ID   = "slide_id"          # must match the slide stem (or a substring of it)
 COL_GLEASON_1  = "primary_pattern"   # integer 1..5

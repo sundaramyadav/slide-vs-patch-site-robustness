@@ -45,7 +45,7 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 
-EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "./data")
 if EVAL_ENGINE_DIR not in sys.path:
     sys.path.insert(0, EVAL_ENGINE_DIR)
 
@@ -59,7 +59,7 @@ from scipy import stats
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE          = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE          = os.environ.get("PCA_ROOT", "./data")
 MANIFEST_DIR  = f"{BASE}/manifest"
 CACHE_DIR     = f"{BASE}/cache/embeddings"
 RESULTS_DIR   = f"{BASE}/results/loso"

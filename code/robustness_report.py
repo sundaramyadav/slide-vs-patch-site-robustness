@@ -1,63 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-robustness report — site-robustness auditing for pathology foundation models
-===========================================================================
-Give it slide embeddings, labels, patient IDs and site labels. It returns a
-standardized model card answering the question a deployer actually has:
+robustness_report — per-encoder metric helper used by build_leaderboard.py
+==========================================================================
+Internal helper. Given slide embeddings, labels, patient IDs and site labels for
+one encoder, it computes the quantities reported in the paper:
 
-    "Will this encoder still work at a hospital it has never seen?"
+    site leakage         chance-normalised balanced accuracy of a site probe
+    Protocol A AUROC     patient-grouped cross-validation
+    Protocol B AUROC     leave-one-site-out
+    generalization gap   Protocol A - Protocol B
+    calibration (ECE)    10-bin expected calibration error
 
-WHY THIS EXISTS
----------------
-Standard benchmarks use random or patient-grouped CV, in which the same
-hospitals appear in train and test. Pathology foundation model embeddings encode
-hospital identity (we measured balanced accuracy up to 0.998 against 0.125
-chance across 30 encoders), so those benchmarks systematically overstate
-cross-institutional performance and their RANKINGS are protocol-dependent.
-
-WHAT IT REPORTS
----------------
-    1. SITE LEAKAGE          how recoverable is hospital identity? (0 = none, 1 = perfect)
-    2. RANDOM-CV AUROC       the optimistic number a standard benchmark would print
-    3. LOSO AUROC            the honest number: leave-one-hospital-out
-    4. GENERALIZATION GAP    (2) - (3). How much the standard benchmark overstates.
-    5. HARMONIZATION RECOVERY  AUROC after transductive site-standardization,
-                               i.e. what you would recover IF you collected
-                               unlabeled slides from the target hospital first.
-    6. CALIBRATION (ECE)     are the probabilities trustworthy?
-    7. VERDICT               a deployment recommendation, not just a score.
-
-KEY DISTINCTION (do not blur this)
-----------------------------------
-    INDUCTIVE   = no target-hospital data. Our experiments show site removal in
-                  this regime destroys biological signal faster than batch signal.
-    TRANSDUCTIVE= unlabeled target-hospital data available. Site signal can then
-                  be driven to ~chance for roughly 0.09 AUROC.
-    The tool reports the transductive number as CONDITIONAL, never as free.
-
-CAVEAT BUILT INTO THE REPORT
-----------------------------
-    Site-centering removes case-mix signal by construction: if hospitals differ
-    in class prevalence, a site's mean embedding encodes that prevalence. Part of
-    any harmonization cost is therefore a method artifact. The card says so.
-
-USAGE
------
-    from robustness_report import RobustnessReport
-
-    audit = RobustnessReport(
-        X=embeddings,                  # (n_slides, dim)
-        y=labels,                      # (n_slides,) binary
-        patient_ids=patients,          # (n_slides,) grouping
-        site_labels=sites,             # (n_slides,) hospital / scanner / batch
-        encoder_name="my_encoder",
-    )
-    report = audit.run()
-    audit.to_markdown("my_encoder_card.md")
-
-MIT licensed. Cite: [paper reference].
-RULE: never deletes any files.
+This is not a standalone benchmark or an evaluation framework, and it is not a
+contribution of the paper; it exists so that build_leaderboard.py computes each
+encoder's numbers through one code path. For a published, peer-reviewed
+robustness benchmark for pathology foundation models, see PathoROB
+(Kömen et al., Nature Communications 17:5218, 2026).
 """
 
 import os
@@ -289,7 +248,7 @@ class RobustnessReport:
 
         return {"flags": flags, "recommendations": rec}
 
-    # ── 6. model card ───────────────────────────────────────────────────
+    # ── 6. per-encoder summary ───────────────────────────────────────────────────
     def to_markdown(self, path=None):
         if not self.report:
             self.run()
@@ -299,7 +258,7 @@ class RobustnessReport:
             return "n/a" if v is None or (isinstance(v, float) and np.isnan(v)) else f"{v:.{n}f}"
 
         L = [f"# robustness report — `{r['encoder']}`", "",
-             f"*Site-robustness model card · tool v{r['version']}*", "",
+             f"*Per-encoder robustness summary (v{r['version']})*", "",
              "## Dataset", "",
              f"- Slides: **{r['n_slides']}** · Patients: **{r['n_patients']}**",
              f"- Sites: **{r['n_sites_total']}** total, **{r['n_sites_usable']}** usable "
@@ -356,7 +315,7 @@ class RobustnessReport:
             os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
             with open(path, "w") as f:
                 f.write(md + "\n")
-            self._log(f"  model card -> {path}")
+            self._log(f"  summary -> {path}")
         return md
 
     def to_json(self, path=None):

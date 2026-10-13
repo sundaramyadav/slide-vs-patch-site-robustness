@@ -66,6 +66,12 @@ results/         script output
 
 ## Running the pipeline
 
+**These scripts require the TCGA-PRAD whole-slide images and a completed TRIDENT
+feature extraction** (see *Feature extraction* below). They are the record of how
+the released artifacts were produced. If you only want to check or re-analyse the
+published numbers, you do not need any of this — use `verify_from_predictions.py`
+and the files in `predictions/` and `results/`.
+
 | # | Script | Produces |
 |---|---|---|
 | 1 | `build_manifest_and_folds.py` | slide manifest, patient-grouped folds |
@@ -81,7 +87,22 @@ results/         script output
 
 Additional analyses: `spatial_localization.py` (per-patch site maps, Moran's I),
 `pruning_pilot.py` (instance-level pruning, a negative result),
-`robustness_report.py` (per-encoder robustness summary).
+`robustness_report.py` (internal metric helper used by `build_leaderboard.py`),
+`run_protocol_a_pilot.py` (single-encoder pilot used to validate the Protocol A
+setup before the full run).
+
+### Verifying the published numbers without features
+
+`verify_from_predictions.py` recomputes the headline results directly from the
+released out-of-fold predictions. It needs nothing but this repository:
+
+```bash
+python code/verify_from_predictions.py
+```
+
+It reports per-encoder AUROC under both protocols, the slide-versus-patch
+degradation gap, the rank correlation between protocols, and the
+matched-coverage sensitivity analysis.
 
 `eval_engine.py` is the shared library: data loading, cross-validation, metrics,
 bootstrap confidence intervals, calibration.

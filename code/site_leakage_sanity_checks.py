@@ -59,7 +59,7 @@ from sklearn.decomposition import PCA
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE          = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE          = os.environ.get("PCA_ROOT", "./data")
 MANIFEST_DIR  = f"{BASE}/manifest"
 CACHE_DIR     = f"{BASE}/cache/embeddings"
 SITE_DIR      = f"{BASE}/results/site_analysis"

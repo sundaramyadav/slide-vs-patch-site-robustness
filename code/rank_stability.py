@@ -59,7 +59,7 @@ from scipy import stats
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-BASE        = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+BASE        = os.environ.get("PCA_ROOT", "./data")
 LOSO_DIR    = f"{BASE}/results/loso"
 MEANPOOL_DIR= f"{BASE}/results/meanpool"
 PROBE_DIR   = f"{BASE}/results/linear_probe"

@@ -40,7 +40,7 @@ import numpy as np
 warnings.filterwarnings("ignore")
 
 # ── eval_engine location ────────────────────────────────────────────────────
-EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer")
+EVAL_ENGINE_DIR = os.environ.get("PCA_ROOT", "./data")
 if EVAL_ENGINE_DIR not in sys.path:
     sys.path.insert(0, EVAL_ENGINE_DIR)
 
@@ -57,10 +57,10 @@ from eval_engine import (
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
-MANIFEST_DIR  = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/manifest"
-RESULTS_DIR   = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/meanpool"
-FIGURES_DIR   = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/figures"
-LEADERBOARD   = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/phase3_leaderboard.csv"
+MANIFEST_DIR  = os.environ.get("PCA_ROOT", "./data") + "/manifest"
+RESULTS_DIR   = os.environ.get("PCA_ROOT", "./data") + "/results/meanpool"
+FIGURES_DIR   = os.environ.get("PCA_ROOT", "./data") + "/results/figures"
+LEADERBOARD   = os.environ.get("PCA_ROOT", "./data") + "/results/phase3_leaderboard.csv"
 
 MANIFEST_PATH  = os.path.join(MANIFEST_DIR, "manifest_slides.csv")
 INVENTORY_PATH = os.path.join(MANIFEST_DIR, "feature_inventory.csv")
@@ -319,7 +319,7 @@ def main():
     print("=" * 65)
 
     # Also load slide encoder results for the combined table
-    slide_results_dir = os.environ.get("PCA_ROOT", "/content/drive/MyDrive/ProstateCancer") + "/results/linear_probe"
+    slide_results_dir = os.environ.get("PCA_ROOT", "./data") + "/results/linear_probe"
     slide_encoders = ["chief", "titan", "madeleine", "feather"]
     slide_results = []
     for enc in slide_encoders:
